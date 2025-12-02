@@ -16,29 +16,52 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (s[i])
 		i++;
 	return (i);
 }
 
-char	*ft_malloc(char *s1, char *s2)
+static char	*ft_malloc(size_t len, size_t len2)
 {
 	char	*str;
 
-	str = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	str = malloc(len + len2 + 1);
 	if (!str)
 		return (NULL);
 	return (str);
 }
 
+static void	ft_lenjoin(char *dst, const char *s1, const char *s2, size_t len1)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (i < len1)
+	{
+		dst[i] = s1[i];
+		i++;
+	}
+	j = 0;
+	while (s2[j])
+	{
+		dst[i] = s2[j];
+		i++;
+		j++;
+	}
+	dst[i] = '\0';
+}
+
 char	*ft_strjoin(char *s1, char *s2)
 {
-	int		i;
-	int		j;
+	size_t	len;
+	size_t	len2;
 	char	*str;
 
-	i = -1;
-	j = -1;
+	if (!s2)
+		return (s1);
 	if (!s1)
 	{
 		s1 = malloc(sizeof(char));
@@ -46,16 +69,16 @@ char	*ft_strjoin(char *s1, char *s2)
 			return (NULL);
 		s1[0] = '\0';
 	}
-	str = ft_malloc(s1, s2);
-	while (s1[++i])
-		str[i] = s1[i];
-	while (s2[++j])
+	len = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	str = ft_malloc(len, len2);
+	if (!str)
 	{
-		str[i] = s2[j];
-		i++;
+		free(s1);
+		return (NULL);
 	}
-	free (s1);
-	str[i] = '\0';
+	ft_lenjoin(str, s1, s2, len);
+	free(s1);
 	return (str);
 }
 
@@ -64,6 +87,8 @@ char	*ft_strchr(const char *s, int c)
 	int				i;
 	unsigned char	str;
 
+	if (!s)
+		return (NULL);
 	str = (unsigned char) c;
 	i = 0;
 	while (s[i])
@@ -76,4 +101,3 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *)(s + i));
 	return (NULL);
 }
-
