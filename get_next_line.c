@@ -52,7 +52,7 @@ char	*ft_update_line(char *upi)
 	if (!upi[i])
 		return (free(upi), NULL);
 	i++;
-	new_line = malloc((ft_strlen(upi) - i + 1) * sizeof(char));
+	new_line = malloc((ft_strlen(upi + i) + 1) * sizeof(char));
 	if (!new_line)
 		return (free(upi), NULL);
 	while (upi[i])

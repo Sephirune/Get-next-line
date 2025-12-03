@@ -9,7 +9,7 @@
 /*   Updated: 2025/11/20 16:24:32 by aarogarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_parse_line(char *aux)
 {
@@ -42,24 +42,20 @@ char	*ft_update_line(char *upi)
 	int		i;
 	char	*new_line;
 	int		j;
-	int		k;
 
 	if (!upi)
 		return (NULL);
 	i = 0;
 	j = 0;
-	k = ft_strlen(upi) - i;
 	while (upi[i] && upi[i] != '\n')
 		i++;
 	if (!upi[i])
 		return (free(upi), NULL);
 	i++;
-	if (k == 0)
-		return (free(upi), NULL);
-	new_line = malloc((k + 1) * sizeof(char));
+	new_line = malloc((ft_strlen(upi + i) + 1) * sizeof(char));
 	if (!new_line)
 		return (free(upi), NULL);
-	while (j < k)
+	while (upi[i])
 		new_line[j++] = upi[i++];
 	new_line[j] = '\0';
 	free(upi);
@@ -97,10 +93,10 @@ char	*get_next_line(int fd)
 	static char	*buff[FOPEN_MAX];
 	char		*helpy;
 
-	if (!buff[fd])
-		buff[fd] = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= FOPEN_MAX)
 		return (NULL);
+	if (!buff[fd])
+		buff[fd] = NULL;
 	buff[fd] = ft_read_file(fd, buff[fd]);
 	if (!buff[fd])
 		return (NULL);
@@ -124,4 +120,5 @@ char	*get_next_line(int fd)
         free(line);
     }
     close(fd);
+
 }*/

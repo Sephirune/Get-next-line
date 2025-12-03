@@ -9,7 +9,7 @@
 /*   Updated: 2025/11/18 13:32:42 by aarogarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -21,16 +21,6 @@ size_t	ft_strlen(const char *s)
 	while (s[i])
 		i++;
 	return (i);
-}
-
-static char	*ft_malloc(size_t len, size_t len2)
-{
-	char	*str;
-
-	str = malloc(len + len2 + 1);
-	if (!str)
-		return (NULL);
-	return (str);
 }
 
 static void	ft_lenjoin(char *dst, const char *s1, const char *s2, size_t len1)
@@ -60,8 +50,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	size_t	len2;
 	char	*str;
 
-	if (!s2)
-		return (s1);
 	if (!s1)
 	{
 		s1 = malloc(sizeof(char));
@@ -71,12 +59,9 @@ char	*ft_strjoin(char *s1, char *s2)
 	}
 	len = ft_strlen(s1);
 	len2 = ft_strlen(s2);
-	str = ft_malloc(len, len2);
+	str = malloc((len + len2 + 1) * sizeof(char));
 	if (!str)
-	{
-		free(s1);
-		return (NULL);
-	}
+		return (free(s1), NULL);
 	ft_lenjoin(str, s1, s2, len);
 	free(s1);
 	return (str);
