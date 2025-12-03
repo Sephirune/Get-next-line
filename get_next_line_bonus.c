@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "get_next_line_bonus.h"
 
-char	*ft_parse_line(char *aux)
+static char	*ft_parse_line(char *aux)
 {
 	int		i;
 	char	*line;
@@ -37,7 +37,7 @@ char	*ft_parse_line(char *aux)
 	return (line);
 }
 
-char	*ft_update_line(char *upi)
+static char	*ft_update_line(char *upi)
 {
 	int		i;
 	char	*new_line;
